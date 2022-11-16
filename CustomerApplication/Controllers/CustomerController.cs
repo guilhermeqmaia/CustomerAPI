@@ -24,7 +24,6 @@ namespace CustomerAPI.Controllers
             try
             {
                 var response = _service.GetAll();
-                Console.WriteLine(response.Count);
                 return Ok(response);
             } catch (ArgumentException exception)
             {
@@ -36,8 +35,8 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-            var response = _service.GetById(id);
-            return Ok(response);
+                var response = _service.GetById(id);
+                return Ok(response);
             } catch(ArgumentException exception) {
                 return NotFound(exception.Message);
             }
@@ -58,8 +57,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-
-            _service.Update(customer);
+                _service.Update(customer);
                 return Ok($"Customer with id {customer.Id} updated with success");
             } catch (ArgumentException exception)
             {
