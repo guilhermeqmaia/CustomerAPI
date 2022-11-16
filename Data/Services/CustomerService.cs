@@ -29,7 +29,7 @@ namespace Data.Services
             _customers.Remove(customer);    
         }
 
-        public List<Customer> GetAll()
+        public IEnumerable<Customer> GetAll()
         {
             return _customers;
         }

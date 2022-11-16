@@ -7,7 +7,7 @@ namespace Data.Interfaces
         void Create(Customer customer);
         void Update(Customer customer);
         void Delete(long id);
-        List<Customer> GetAll();
+        IEnumerable<Customer> GetAll();
         Customer GetById(long id);
     }
 }
