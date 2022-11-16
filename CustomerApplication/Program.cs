@@ -3,7 +3,6 @@ using Data.Entities;
 using Data.Interfaces;
 using Data.Services;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
