@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Entities
 {
-    public class Customer : BaseEntity
+    public class Customer
     {
-        Customer(
+        public Customer(
+            long id,
             string fullName,
             string email,
             string emailConfirmation,
@@ -24,6 +21,7 @@ namespace Data.Entities
             int number
         )
         {
+            Id = id;
             Fullname= fullName;
             Email= email;
             EmailConfirmation= emailConfirmation;
@@ -38,7 +36,7 @@ namespace Data.Entities
             Adress= adress;
             Number= number;
         }
-
+        public long Id { get; set; }
         public string Fullname { get; set; }
         public string Email { get; set; }
         public string EmailConfirmation { get; set; }

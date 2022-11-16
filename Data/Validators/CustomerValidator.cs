@@ -38,9 +38,7 @@ namespace CustomerAPI.Validators
             RuleFor(customer => customer.Adress)
                 .NotEmpty();
             RuleFor(customer => customer.Number)
-                .NotEmpty();
-                
-                   
+                .NotEmpty();        
         }
         public static bool validateCpf(string cpf)
         {
