@@ -55,7 +55,7 @@ namespace Data.Entities
 
         string formatCpf( string cpf )
         {
-            return cpf.Trim().Replace( ",", "" ).Replace(".", "").Replace("-", "").Replace("_", "");
+            return cpf.Trim().Replace(".", "").Replace("-", "");
         }
     }
 }

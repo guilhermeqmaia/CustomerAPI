@@ -10,8 +10,8 @@ namespace Data.Interfaces
     public interface ICustomerService
     {
         void Create(Customer customer);
-        bool Update(Customer customer);
-        bool Delete(long id);
+        void Update(Customer customer);
+        void Delete(long id);
         List<Customer> GetAll();
         Customer GetById(long id);
     }
