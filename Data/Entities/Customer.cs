@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Data.Utilities;
+using FluentValidation.Internal;
+using System;
 
 namespace Data.Entities
 {
@@ -25,7 +27,7 @@ namespace Data.Entities
             Fullname= fullName;
             Email= email;
             EmailConfirmation= emailConfirmation;
-            Cpf= formatCpf(cpf);
+            Cpf = StringExtensions.formatCpf(cpf);
             Cellphone = cellphone;
             DateOfBirth= dateOfBirth;
             EmailSms= emailSms;
@@ -36,6 +38,7 @@ namespace Data.Entities
             Adress= adress;
             Number= number;
         }
+
         public long Id { get; set; }
         public string Fullname { get; set; }
         public string Email { get; set; }
