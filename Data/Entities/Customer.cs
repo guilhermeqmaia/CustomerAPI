@@ -28,13 +28,13 @@ namespace Data.Entities
             Email= email;
             EmailConfirmation= emailConfirmation;
             Cpf = StringExtensions.formatCpf(cpf);
-            Cellphone = cellphone;
+            Cellphone = StringExtensions.formatCellphone(cellphone);
             DateOfBirth= dateOfBirth;
             EmailSms= emailSms;
             Whatsapp= whatsapp;
             Country= country;
             City= city;
-            PostalCode= postalCode;
+            PostalCode= StringExtensions.formatPostalCode(postalCode);
             Adress= adress;
             Number= number;
         }
@@ -54,9 +54,5 @@ namespace Data.Entities
         public string Adress { get; set; }
         public int Number { get; set; }
 
-        string formatCpf( string cpf )
-        {
-            return cpf.Trim().Replace(".", "").Replace("-", "");
-        }
     }
 }

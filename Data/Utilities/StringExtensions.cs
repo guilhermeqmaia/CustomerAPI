@@ -15,14 +15,14 @@ namespace Data.Utilities
         }
         public static string formatPostalCode(string postalCode)
         {
-            //Todo: format postal code
-            throw new NotImplementedException();
+            postalCode = postalCode.Trim().Replace("-", "");
+            return postalCode;
         }
 
         public static string formatCellphone(string cellphone)
         {
-            //Todo: format cellphone
-            throw new NotImplementedException();
+            cellphone = cellphone.Trim().Replace("-", "").Replace("(", "").Replace(")", "");
+            return cellphone;
         }
     }
 }

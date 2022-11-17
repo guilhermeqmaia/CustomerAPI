@@ -11,8 +11,8 @@ namespace Data.Services
         private CustomerValidator _validator= new CustomerValidator ();
         public void Create(Customer customer)
         {
-            var validate = _validator.Validate(customer);
-            if(!validate.IsValid) throw new ArgumentException(validate.Errors.ToString());
+           // var validate = _validator.Validate(customer);
+            //if (!validate.IsValid) throw new ArgumentException(validate.Errors.ToString());
             
             if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email))
                 throw new ArgumentException($"Customer with email {customer.Email} already exists");
