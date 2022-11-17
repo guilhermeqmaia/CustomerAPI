@@ -10,7 +10,8 @@ namespace CustomerAPI.Validators
         public CustomerValidator()
         {
             RuleFor(customer => customer.Fullname)
-                .NotEmpty();
+                .NotEmpty()
+                .MinimumLength(5);
             RuleFor(customer => customer.Email)
                 .NotEmpty()
                 .Equal(customer => customer.EmailConfirmation)
@@ -27,10 +28,6 @@ namespace CustomerAPI.Validators
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
                 .WithMessage("Date of birth is not valid");
-            RuleFor(customer => customer.EmailSms)
-                .NotNull();
-            RuleFor(customer => customer.Whatsapp)
-                .NotNull();
             RuleFor(customer => customer.Country)
                 .NotEmpty();
             RuleFor(customer => customer.City)
@@ -45,6 +42,8 @@ namespace CustomerAPI.Validators
         }
         public bool validateCpf(string cpf)
         {
+            if (cpf.All(character => character == cpf.First()))
+                return false;
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf;

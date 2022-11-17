@@ -11,8 +11,8 @@ namespace Data.Services
         private CustomerValidator _validator= new CustomerValidator ();
         public void Create(Customer customer)
         {
-           // var validate = _validator.Validate(customer);
-            //if (!validate.IsValid) throw new ArgumentException(validate.Errors.ToString());
+            var validate = _validator.Validate(customer);
+            if (!validate.IsValid) throw new ArgumentException(validate.Errors.ToString());
             
             if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email))
                 throw new ArgumentException($"Customer with email {customer.Email} already exists");
@@ -36,15 +36,17 @@ namespace Data.Services
 
         public Customer GetById(long id)
         {
-            var customer = _customers.Where(customer => customer.Id == id).FirstOrDefault();
-            if (customer == null) throw new ArgumentException($"Customer with id {id} was not found");
-            return customer;
+           return _customers.Where(customer => customer.Id == id).FirstOrDefault() 
+                ?? throw new ArgumentNullException($"Customer with id {id} was not found");
         }
 
         public void Update(Customer customer)
         {
-            var customerIndex = _customers.FindIndex(tempCustomer => tempCustomer.Cpf == customer.Cpf);
-            if (customerIndex == -1) throw new ArgumentException($"No customer with id {customer.Id} was found in our database.");
+            var validate = _validator.Validate(customer);
+            if (!validate.IsValid) throw new ArgumentException("Customer not valid");
+
+            var customerIndex = _customers.FindIndex(tempCustomer => tempCustomer.Id == customer.Id);
+            if (customerIndex == -1) throw new ArgumentNullException($"No customer with id {customer.Id} was found in our database.");
             
             if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email && tempCustomer.Id != customer.Id))
                 throw new ArgumentException($"Customer with email {customer.Email} already exists");

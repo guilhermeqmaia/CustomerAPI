@@ -24,9 +24,9 @@ namespace CustomerAPI.Controllers
             {
                 var response = _service.GetAll();
                 return Ok(response);
-            } catch (ArgumentException exception)
+            } catch
             {
-                return BadRequest(exception.Message);
+                return NoContent();
             }
         }
         [HttpGet("{id}")]
@@ -36,8 +36,11 @@ namespace CustomerAPI.Controllers
             {
                 var response = _service.GetById(id);
                 return Ok(response);
-            } catch(ArgumentException exception) {
+            } catch(ArgumentNullException exception) {
                 return NotFound(exception.Message);
+            } catch (ArgumentException exception) 
+            {
+                return BadRequest(exception.Message);
             }
         }
         [HttpPost]
@@ -45,7 +48,7 @@ namespace CustomerAPI.Controllers
         {
             try {
                 _service.Create(customer);
-                return Created("Customer created with sucess", customer);
+                return Created("Customer created with success", customer);
             } catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
@@ -57,7 +60,7 @@ namespace CustomerAPI.Controllers
             try
             {
                 _service.Update(customer);
-                return Ok($"Customer with id {customer.Id} updated with success");
+                return Ok();
             } catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
@@ -69,8 +72,8 @@ namespace CustomerAPI.Controllers
             try
             {
                 _service.Delete(id);
-                return Ok("Customer deleted with success");
-            } catch(ArgumentException exception)
+                return NoContent();
+            } catch(ArgumentNullException exception)
             {
                 return BadRequest(exception.Message);
             }  
