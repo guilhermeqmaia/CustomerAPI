@@ -48,7 +48,7 @@ namespace CustomerAPI.Controllers
         {
             try {
                 _service.Create(customer);
-                return Created("Customer created success, with Id: ", customer.Id);
+                return Created("", customer.Id);
             } 
             catch (ArgumentException exception)
             {
