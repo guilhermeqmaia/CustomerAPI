@@ -1,7 +1,5 @@
 ﻿using Data.Entities;
 using Data.Interfaces;
-using Data.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -24,7 +22,8 @@ namespace CustomerAPI.Controllers
             {
                 var response = _service.GetAll();
                 return Ok(response);
-            } catch
+            } 
+            catch
             {
                 return NoContent();
             }
@@ -36,20 +35,19 @@ namespace CustomerAPI.Controllers
             {
                 var response = _service.GetById(id);
                 return Ok(response);
-            } catch(ArgumentNullException exception) {
+            } 
+            catch (ArgumentNullException exception) {
                 return NotFound(exception.Message);
-            } catch (ArgumentException exception) 
-            {
-                return BadRequest(exception.Message);
-            }
+            } 
         }
         [HttpPost]
         public IActionResult Create(Customer customer)
         {
             try {
                 _service.Create(customer);
-                return Created("Customer created with success", customer);
-            } catch (ArgumentException exception)
+                return Created($"Customer with id {customer.Id} created with success", customer);
+            } 
+            catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -61,7 +59,8 @@ namespace CustomerAPI.Controllers
             {
                 _service.Update(customer);
                 return Ok();
-            } catch (ArgumentException exception)
+            } 
+            catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -73,7 +72,8 @@ namespace CustomerAPI.Controllers
             {
                 _service.Delete(id);
                 return NoContent();
-            } catch(ArgumentNullException exception)
+            } 
+            catch(ArgumentNullException exception)
             {
                 return BadRequest(exception.Message);
             }  
