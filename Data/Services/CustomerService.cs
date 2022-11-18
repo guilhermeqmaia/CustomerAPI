@@ -8,12 +8,8 @@ namespace Data.Services
     public class CustomerService : ICustomerService
     {
         private readonly List<Customer> _customers = new List<Customer>();
-        private CustomerValidator _validator= new CustomerValidator ();
         public void Create(Customer customer)
-        {
-            var validate = _validator.Validate(customer);
-            if (!validate.IsValid) throw new ArgumentException(validate.Errors.ToString());
-            
+        {    
             if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email))
                 throw new ArgumentException($"Customer with email {customer.Email} already exists");
             if (_customers.Any((tempCustomer) => tempCustomer.Cpf == customer.Cpf))
@@ -42,9 +38,6 @@ namespace Data.Services
 
         public void Update(Customer customer)
         {
-            var validate = _validator.Validate(customer);
-            if (!validate.IsValid) throw new ArgumentException("Customer not valid");
-
             var customerIndex = _customers.FindIndex(tempCustomer => tempCustomer.Id == customer.Id);
             if (customerIndex == -1) throw new ArgumentNullException($"No customer with id {customer.Id} was found in our database.");
             

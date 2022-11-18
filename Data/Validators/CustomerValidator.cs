@@ -26,8 +26,8 @@ namespace CustomerAPI.Validators
                 .WithMessage("Invalid CPF");
             RuleFor(customer => customer.Cellphone)
                 .NotEmpty()
-                .MinimumLength(10)
-                .WithMessage("Cellphone is not valid, make sure that you provided a DDD");
+                .Must(validateCellphone)
+                .WithMessage("Cellphone is not valid, make sure that you provided a correct number");
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
                 .WithMessage("Date of birth is not valid");
@@ -95,6 +95,21 @@ namespace CustomerAPI.Validators
                 postalCode = postalCode.Substring(0, 5) + "-" + postalCode.Substring(5, 3);
             }
             return System.Text.RegularExpressions.Regex.IsMatch(postalCode, ("[0-9]{5}-[0-9]{3}"));
+        }
+
+        public bool validateCellphone(string cellphone)
+        {
+            if (cellphone.Length < 10 || cellphone.Length > 11)
+            {
+                return false;
+            } else if (cellphone.Length == 11)  
+            {
+                if (cellphone[2].ToString() != "9")
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
