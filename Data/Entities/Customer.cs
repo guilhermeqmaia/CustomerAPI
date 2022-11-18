@@ -1,5 +1,4 @@
 ﻿using Data.Utilities;
-using FluentValidation.Internal;
 using System;
 
 namespace Data.Entities
@@ -53,6 +52,5 @@ namespace Data.Entities
         public string PostalCode { get; set; }
         public string Adress { get; set; }
         public int Number { get; set; }
-
     }
 }

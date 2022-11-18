@@ -3,7 +3,6 @@ using Data.Utilities;
 using FluentValidation;
 using FluentValidation.Validators;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
 
 namespace CustomerAPI.Validators
 {
