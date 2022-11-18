@@ -53,6 +53,7 @@ namespace CustomerAPI.Validators
             RuleFor(customer => customer.Number)
                 .NotEmpty();
         }
+
         public bool validateCpf(string cpf)
         {
             if (cpf.All(character => character == cpf.First()))
