@@ -6,23 +6,20 @@ using System.Threading.Tasks;
 
 namespace Data.Utilities
 {
-    public class StringExtensions
+    public static class StringExtensions
     {
-        public StringExtensions() {}
-        public static string formatCpf(string cpf)
+        public static string FormatCpf(this string cpf)
         {
-            return cpf.Trim().Replace(".", "").Replace("-", "");
+            return cpf.Trim().Replace(".", "").Replace(",", "").Replace("-", "");
         }
-        public static string formatPostalCode(string postalCode)
+        public static string FormatPostalCode(this string postalCode)
         {
-            postalCode = postalCode.Trim().Replace("-", "");
-            return postalCode;
+            return postalCode.Trim().Replace("-", "").Replace(".", "").Replace(",", "");
         }
 
-        public static string formatCellphone(string cellphone)
+        public static string FormatCellphone(this string cellphone)
         {
-            cellphone = cellphone.Trim().Replace("-", "").Replace("(", "").Replace(")", "");
-            return cellphone;
+            return cellphone.Trim().Replace("-", "").Replace("(", "").Replace(")", "").Replace(".", "").Replace(",", "");
         }
     }
 }

@@ -27,14 +27,14 @@ namespace Data.Entities
             Fullname= fullName;
             Email= email;
             EmailConfirmation= emailConfirmation;
-            Cpf = StringExtensions.formatCpf(cpf);
-            Cellphone = StringExtensions.formatCellphone(cellphone);
+            Cpf = cpf.FormatCpf();
+            Cellphone = cellphone.FormatCellphone();
             DateOfBirth= dateOfBirth;
             EmailSms= emailSms;
             Whatsapp= whatsapp;
             Country= country;
             City= city;
-            PostalCode= StringExtensions.formatPostalCode(postalCode);
+            PostalCode= postalCode.FormatPostalCode();
             Adress= adress;
             Number= number;
         }

@@ -10,6 +10,7 @@ namespace CustomerAPI.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _service;
+
         public CustomerController(ICustomerService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -28,6 +29,7 @@ namespace CustomerAPI.Controllers
                 return NoContent();
             }
         }
+
         [HttpGet("{id}")]
         public IActionResult GetById(long id)
         {
@@ -40,6 +42,7 @@ namespace CustomerAPI.Controllers
                 return NotFound(exception.Message);
             } 
         }
+
         [HttpPost]
         public IActionResult Create(Customer customer)
         {
@@ -52,6 +55,7 @@ namespace CustomerAPI.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
         [HttpPut]
         public IActionResult Update(Customer customer)
         {
@@ -65,6 +69,7 @@ namespace CustomerAPI.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
         [HttpDelete]
         public IActionResult Delete(long id)
         {

@@ -1,7 +1,9 @@
-﻿using CustomerAPI.Validators;
+﻿
 using Data.Entities;
 using Data.Interfaces;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Services
 {
