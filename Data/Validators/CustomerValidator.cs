@@ -24,12 +24,12 @@ namespace CustomerAPI.Validators
 
             RuleFor(customer => customer.Cpf)
                 .NotEmpty()
-                .Must(validateCpf)
+                .Must(IsValidCpf)
                 .WithMessage("Invalid CPF");
 
             RuleFor(customer => customer.Cellphone)
                 .NotEmpty()
-                .Must(validateCellphone)
+                .Must(IsValidCellphone)
                 .WithMessage("Cellphone is not valid, make sure that you provided a correct number");
 
             RuleFor(customer => customer.DateOfBirth)
@@ -44,7 +44,7 @@ namespace CustomerAPI.Validators
 
             RuleFor(customer => customer.PostalCode)
                 .NotEmpty()
-                .Must(validatePostalCode)
+                .Must(IsValidPostalCode)
                 .WithMessage("Invalid Postal Code");
 
             RuleFor(customer => customer.Adress)
@@ -54,7 +54,7 @@ namespace CustomerAPI.Validators
                 .NotEmpty();
         }
 
-        public bool validateCpf(string cpf)
+        public bool IsValidCpf(string cpf)
         {
             if (cpf.All(character => character == cpf.First()))
                 return false;
@@ -101,7 +101,7 @@ namespace CustomerAPI.Validators
             return cpf.EndsWith(digit);
         }
 
-        public bool validatePostalCode(string postalCode)
+        public bool IsValidPostalCode(string postalCode)
         {
             if (postalCode.Length == 8)
                 postalCode = postalCode.Substring(0, 5) + "-" + postalCode.Substring(5, 3);
@@ -109,7 +109,7 @@ namespace CustomerAPI.Validators
             return System.Text.RegularExpressions.Regex.IsMatch(postalCode, ("[0-9]{5}-[0-9]{3}"));
         }
 
-        public bool validateCellphone(string cellphone)
+        public bool IsValidCellphone(string cellphone)
         {
             if (cellphone.Length < 10 || cellphone.Length > 11)
                 return false;
