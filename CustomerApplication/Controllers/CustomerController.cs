@@ -48,7 +48,7 @@ namespace CustomerAPI.Controllers
         {
             try {
                 _service.Create(customer);
-                return Created($"Customer with id {customer.Id} created with success", customer);
+                return Created("Customer created success, with Id: ", customer.Id);
             } 
             catch (ArgumentException exception)
             {
@@ -63,11 +63,16 @@ namespace CustomerAPI.Controllers
             {
                 _service.Update(customer);
                 return Ok();
-            } 
+            }
+            catch (ArgumentNullException exception)
+            {
+                return NotFound(exception.Message);
+            }
             catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
             }
+            
         }
 
         [HttpDelete]
@@ -80,7 +85,7 @@ namespace CustomerAPI.Controllers
             } 
             catch(ArgumentNullException exception)
             {
-                return BadRequest(exception.Message);
+                return NotFound(exception.Message);
             }  
         }
     }

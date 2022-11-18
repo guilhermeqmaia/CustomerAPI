@@ -13,43 +13,45 @@ namespace CustomerAPI.Validators
         {
             RuleFor(customer => customer.Fullname)
                 .NotEmpty()
-                .WithMessage("A name should be provided")
-                .MinimumLength(5)
-                .WithMessage("The Full Name passed was too short");
+                .MinimumLength(5);
+
             RuleFor(customer => customer.Email)
                 .NotEmpty()
                 .Equal(customer => customer.EmailConfirmation)
                 .WithMessage("Emails don't match")
                 .EmailAddress(EmailValidationMode.AspNetCoreCompatible)
                 .WithMessage("Email is not valid");
+
             RuleFor(customer => customer.Cpf)
                 .NotEmpty()
                 .Must(validateCpf)
                 .WithMessage("Invalid CPF");
+
             RuleFor(customer => customer.Cellphone)
                 .NotEmpty()
                 .Must(validateCellphone)
                 .WithMessage("Cellphone is not valid, make sure that you provided a correct number");
+
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
                 .WithMessage("Date of birth is not valid");
+
             RuleFor(customer => customer.Country)
-                .NotEmpty()
-                .WithMessage("A Country should be provided");
+                .NotEmpty();
+
             RuleFor(customer => customer.City)
-                .NotEmpty()
-                .WithMessage("A City must be provided");
+                .NotEmpty();
+
             RuleFor(customer => customer.PostalCode)
                 .NotEmpty()
-                .WithMessage("A Postal Code should be provided")
                 .Must(validatePostalCode)
                 .WithMessage("Invalid Postal Code");
+
             RuleFor(customer => customer.Adress)
-                .NotEmpty()
-                .WithMessage("A Adress should be provided");
+                .NotEmpty();
+
             RuleFor(customer => customer.Number)
-                .NotEmpty()
-                .WithMessage("A Number should be provided");
+                .NotEmpty();
         }
         public bool validateCpf(string cpf)
         {
