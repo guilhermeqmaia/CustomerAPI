@@ -11,7 +11,9 @@ namespace CustomerAPI.Validators
         {
             RuleFor(customer => customer.Fullname)
                 .NotEmpty()
-                .MinimumLength(5);
+                .WithMessage("A name should be provided")
+                .MinimumLength(5)
+                .WithMessage("The Full Name passed was too short");
             RuleFor(customer => customer.Email)
                 .NotEmpty()
                 .Equal(customer => customer.EmailConfirmation)
@@ -20,7 +22,8 @@ namespace CustomerAPI.Validators
                 .WithMessage("Email is not valid");
             RuleFor(customer => customer.Cpf)
                 .NotEmpty()
-                .Must(validateCpf);
+                .Must(validateCpf)
+                .WithMessage("Invalid CPF");
             RuleFor(customer => customer.Cellphone)
                 .NotEmpty()
                 .MinimumLength(10)
@@ -29,54 +32,60 @@ namespace CustomerAPI.Validators
                 .NotEmpty()
                 .WithMessage("Date of birth is not valid");
             RuleFor(customer => customer.Country)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("A Country should be provided");
             RuleFor(customer => customer.City)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("A City must be provided");
             RuleFor(customer => customer.PostalCode)
                 .NotEmpty()
-                .Must(validatePostalCode);
+                .WithMessage("A Postal Code should be provided")
+                .Must(validatePostalCode)
+                .WithMessage("Invalid Postal Code");
             RuleFor(customer => customer.Adress)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("A Adress should be provided");
             RuleFor(customer => customer.Number)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("A Number should be provided");
         }
         public bool validateCpf(string cpf)
         {
             if (cpf.All(character => character == cpf.First()))
                 return false;
-            int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplier1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplier2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf;
-            string digito;
-            int soma;
-            int resto;
+            string digit;
+            int sum;
+            int rest;
             cpf = cpf.Trim();
             cpf = cpf.Replace(".", "").Replace("-", "");
             if (cpf.Length != 11)
                 return false;
             
             tempCpf = cpf.Substring(0, 9);
-            soma = 0;
+            sum = 0;
 
             for (int i = 0; i < 9; i++)
-                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
-            resto = soma % 11;
-            if (resto < 2)
-                resto = 0;
+                sum += int.Parse(tempCpf[i].ToString()) * multiplier1[i];
+            rest = sum % 11;
+            if (rest < 2)
+                rest = 0;
             else
-                resto = 11 - resto;
-            digito = resto.ToString();
-            tempCpf = tempCpf + digito;
-            soma = 0;
+                rest = 11 - rest;
+            digit = rest.ToString();
+            tempCpf = tempCpf + digit;
+            sum = 0;
             for (int i = 0; i < 10; i++)
-                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
-            resto = soma % 11;
-            if (resto < 2)
-                resto = 0;
+                sum += int.Parse(tempCpf[i].ToString()) * multiplier2[i];
+            rest = sum % 11;
+            if (rest < 2)
+                rest = 0;
             else
-                resto = 11 - resto;
-            digito = digito + resto.ToString();
-            return cpf.EndsWith(digito);
+                rest = 11 - rest;
+            digit = digit + rest.ToString();
+            return cpf.EndsWith(digit);
         }
 
         public bool validatePostalCode(string postalCode)
