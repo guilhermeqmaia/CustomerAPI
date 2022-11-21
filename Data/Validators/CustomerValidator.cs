@@ -46,7 +46,7 @@ namespace CustomerAPI.Validators
                 .Must(IsValidPostalCode)
                 .WithMessage("Invalid Postal Code");
 
-            RuleFor(customer => customer.Adress)
+            RuleFor(customer => customer.Address)
                 .NotEmpty();
 
             RuleFor(customer => customer.Number)
@@ -110,12 +110,9 @@ namespace CustomerAPI.Validators
 
         public bool IsValidCellphone(string cellphone)
         {
-            if (cellphone.Length < 10 || cellphone.Length > 11)
-                return false;
+            if (cellphone.Length < 10 || cellphone.Length > 11) return false;
 
-            if (cellphone.Length == 11)
-                if (cellphone[2].ToString() != "9")
-                    return false;
+            if (cellphone.Length == 11 && cellphone[2].ToString() != "9") return false;
 
             return true;
         }

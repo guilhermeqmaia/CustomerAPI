@@ -18,12 +18,12 @@ namespace Data.Entities
             string country,
             string city,
             string postalCode,
-            string adress,
+            string address,
             int number
         )
         {
             Id = id;
-            Fullname= fullName;
+            Fullname = fullName;
             Email= email;
             EmailConfirmation= emailConfirmation;
             Cpf = cpf.FormatCpf();
@@ -34,7 +34,7 @@ namespace Data.Entities
             Country= country;
             City= city;
             PostalCode= postalCode.FormatPostalCode();
-            Adress= adress;
+            Address= address;
             Number= number;
         }
 
@@ -50,7 +50,7 @@ namespace Data.Entities
         public string Country { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
         public int Number { get; set; }
     }
 }

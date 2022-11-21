@@ -10,7 +10,7 @@ namespace Data.Services
     {
         private readonly List<Customer> _customers = new ();
 
-        public void Create(Customer customer)
+        public long Create(Customer customer)
         {    
             if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email))
                 throw new ArgumentException($"Customer with email {customer.Email} already exists");
@@ -20,6 +20,7 @@ namespace Data.Services
 
             customer.Id = _customers.LastOrDefault()?.Id + 1 ?? 1;
             _customers.Add(customer);
+            return customer.Id;
         }
 
         public void Delete(long id)
@@ -38,7 +39,7 @@ namespace Data.Services
             var customer = _customers.FirstOrDefault(customer => customer.Id == id);
 
             if (customer == null)
-                throw new ArgumentNullException($"Customer with id: {id} was not found");
+                throw new ArgumentNullException($"Customer for id: {id} was not found");
 
             return customer;
         }
@@ -47,7 +48,7 @@ namespace Data.Services
         {
             var customerIndex = _customers.FindIndex(tempCustomer => tempCustomer.Id == customer.Id);
             
-            if (customerIndex == -1) throw new ArgumentNullException($"No customer with id {customer.Id} was found in our database.");
+            if (customerIndex == -1) throw new ArgumentNullException($"Customer for id: {customer.Id} was not found");
             
             if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email && tempCustomer.Id != customer.Id))
                 throw new ArgumentException($"Customer with email {customer.Email} already exists");

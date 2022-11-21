@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data.Utilities
+﻿namespace Data.Utilities
 {
     public static class StringExtensions
     {
@@ -12,6 +6,7 @@ namespace Data.Utilities
         {
             return cpf.Trim().Replace(".", "").Replace(",", "").Replace("-", "");
         }
+
         public static string FormatPostalCode(this string postalCode)
         {
             return postalCode.Trim().Replace("-", "").Replace(".", "").Replace(",", "");

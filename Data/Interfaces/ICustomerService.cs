@@ -5,7 +5,7 @@ namespace Data.Interfaces
 {
     public interface ICustomerService
     {
-        void Create(Customer customer);
+        long Create(Customer customer);
         void Update(Customer customer);
         void Delete(long id);
         IEnumerable<Customer> GetAll();
