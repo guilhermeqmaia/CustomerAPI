@@ -36,10 +36,8 @@ namespace Data.Services
 
         public Customer GetById(long id)
         {
-            var customer = _customers.FirstOrDefault(customer => customer.Id == id);
-
-            if (customer == null)
-                throw new ArgumentNullException($"Customer for id: {id} was not found");
+            var customer = _customers.FirstOrDefault(customer => customer.Id == id) 
+                ?? throw new ArgumentNullException($"Customer for id: {id} was not found");
 
             return customer;
         }
