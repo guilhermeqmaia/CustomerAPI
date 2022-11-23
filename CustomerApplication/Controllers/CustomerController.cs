@@ -9,11 +9,11 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerAppService _customerService;
+        private readonly ICustomerAppService _customerAppService;
 
-        public CustomerController(ICustomerAppService customerService)
+        public CustomerController(ICustomerAppService customerAppService)
         {
-            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService   ));
         }
 
         [HttpGet]
@@ -21,12 +21,13 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                var response = _customerService.GetAll();
+                var response = _customerAppService.GetAll();
                 return Ok(response);
             } 
-            catch
+            catch (Exception exception)
             {
-                return NoContent();
+                var exceptionMessage = exception.InnerException?.Message ?? exception.Message;
+                return Problem(exceptionMessage);
             }
         }
 
@@ -35,7 +36,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                var response = _customerService.GetById(id);
+                var response = _customerAppService.GetById(id);
                 return Ok(response);
             } 
             catch (ArgumentNullException exception) {
@@ -47,8 +48,8 @@ namespace CustomerAPI.Controllers
         public IActionResult Create(Customer customer)
         {
             try {
-                var createdCustomer = _customerService.Create(customer);
-                return Created("", createdCustomer);
+                var createdCustomerId = _customerAppService.Create(customer);
+                return Created("Id: ", createdCustomerId);
             } 
             catch (ArgumentException exception)
             {
@@ -61,7 +62,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                _customerService.Update(customer);
+                _customerAppService.Update(customer);
                 return Ok();
             }
             catch (ArgumentNullException exception)
@@ -80,7 +81,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                _customerService.Delete(id);
+                _customerAppService.Delete(id);
                 return NoContent();
             } 
             catch(ArgumentNullException exception)

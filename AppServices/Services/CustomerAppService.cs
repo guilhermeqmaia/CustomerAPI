@@ -17,8 +17,7 @@ namespace AppServices.Services
 
         public long Create(Customer customer)
         {
-            _customerService.Create(customer);
-            return customer.Id;
+            return _customerService.Create(customer);
         }
 
         public void Delete(long id)
