@@ -1,5 +1,6 @@
 using DomainModels.Entities;
 using DomainServices.Interfaces;
+using DomainServices.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,8 @@ namespace DomainServices.Services
         private readonly List<Customer> _customers = new ();
 
         public long Create(Customer customer)
-        {    
-            if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email))
-                throw new ArgumentException($"Customer with email {customer.Email} already exists");
-            
-            if (_customers.Any((tempCustomer) => tempCustomer.Cpf == customer.Cpf))
-                throw new ArgumentException($"Customer with cpf {customer.Cpf} already exists");
+        {
+            CustomerServiceMethodExtensions.IsCustomerValid(_customers, customer);
 
             customer.Id = _customers.LastOrDefault()?.Id + 1 ?? 1;
             _customers.Add(customer);
@@ -46,13 +43,9 @@ namespace DomainServices.Services
         {
             var customerIndex = _customers.FindIndex(tempCustomer => tempCustomer.Id == customer.Id);
             
-            if (customerIndex == -1) throw new ArgumentNullException($"Customer for id: {customer.Id} was not found");
-            
-            if (_customers.Any((tempCustomer) => tempCustomer.Email == customer.Email && tempCustomer.Id != customer.Id))
-                throw new ArgumentException($"Customer with email {customer.Email} already exists");
-            
-            if (_customers.Any((tempCustomer) => tempCustomer.Cpf == customer.Cpf && tempCustomer.Id != customer.Id))
-                throw new ArgumentException($"Customer with cpf {customer.Cpf} already exists");
+            if (customerIndex == -1) throw new ArgumentNullException($"Customer for id: {customer.Id} could not be found");
+
+            CustomerServiceMethodExtensions.IsCustomerValid(_customers, customer);
 
             _customers[customerIndex] = customer;
         }

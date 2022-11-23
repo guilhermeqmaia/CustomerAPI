@@ -58,11 +58,11 @@ namespace CustomerAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Customer customer)
+        public IActionResult Update([FromBody]Customer customer, long id)
         {
             try
             {
-                _customerAppService.Update(customer);
+                _customerAppService.Update(customer, id);
                 return Ok();
             }
             catch (ArgumentNullException exception)

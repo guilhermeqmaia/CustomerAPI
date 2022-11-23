@@ -6,7 +6,6 @@ namespace DomainModels.Entities
     public class Customer
     {
         public Customer(
-            long id,
             string fullName,
             string email,
             string emailConfirmation,
@@ -22,7 +21,6 @@ namespace DomainModels.Entities
             int number
         )
         {
-            Id = id;
             Fullname = fullName;
             Email= email;
             EmailConfirmation= emailConfirmation;

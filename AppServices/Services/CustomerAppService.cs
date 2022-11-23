@@ -35,8 +35,9 @@ namespace AppServices.Services
             return _customerService.GetById(id);   
         }
 
-        public void Update(Customer customer)
+        public void Update(Customer customer, long id)
         {
+            customer.Id = id;
             _customerService.Update(customer);
         }
     }
