@@ -1,7 +1,6 @@
-﻿using Data.Entities;
-using System.Collections.Generic;
+﻿using DomainModels.Entities;
 
-namespace Data.Interfaces
+namespace DomainServices.Interfaces
 {
     public interface ICustomerService
     {

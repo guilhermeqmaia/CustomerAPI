@@ -1,7 +1,6 @@
-﻿using Data.Utilities;
-using System;
+﻿using DomainModels.Utilities;
 
-namespace Data.Entities
+namespace DomainModels.Entities
 {
     public class Customer
     {
