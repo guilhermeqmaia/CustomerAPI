@@ -13,7 +13,7 @@ namespace CustomerAPI.Controllers
 
         public CustomerController(ICustomerAppService customerAppService)
         {
-            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService   ));
+            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService));
         }
 
         [HttpGet]
