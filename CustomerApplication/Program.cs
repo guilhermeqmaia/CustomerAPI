@@ -1,7 +1,9 @@
-using CustomerAPI.Validators;
-using Data.Entities;
-using Data.Interfaces;
-using Data.Services;
+using AppServices.Interfaces;
+using AppServices.Services;
+using AppServices.Validators;
+using DomainModels.Entities;
+using DomainServices.Interfaces;
+using DomainServices.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
+builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
 
 var app = builder.Build();

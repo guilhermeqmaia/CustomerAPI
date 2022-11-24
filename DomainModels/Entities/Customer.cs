@@ -1,12 +1,11 @@
-﻿using Data.Utilities;
+﻿using DomainModels.Utilities;
 using System;
 
-namespace Data.Entities
+namespace DomainModels.Entities
 {
     public class Customer
     {
         public Customer(
-            long id,
             string fullName,
             string email,
             string emailConfirmation,
@@ -22,7 +21,6 @@ namespace Data.Entities
             int number
         )
         {
-            Id = id;
             Fullname = fullName;
             Email= email;
             EmailConfirmation= emailConfirmation;

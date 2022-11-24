@@ -1,5 +1,5 @@
-﻿using Data.Entities;
-using Data.Interfaces;
+﻿using AppServices.Interfaces;
+using DomainModels.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -9,11 +9,11 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerService _service;
+        private readonly ICustomerAppService _customerAppService;
 
-        public CustomerController(ICustomerService service)
+        public CustomerController(ICustomerAppService customerAppService)
         {
-            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService));
         }
 
         [HttpGet]
@@ -21,12 +21,13 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                var response = _service.GetAll();
+                var response = _customerAppService.GetAll();
                 return Ok(response);
             } 
-            catch
+            catch (Exception exception)
             {
-                return NoContent();
+                var exceptionMessage = exception.InnerException?.Message ?? exception.Message;
+                return Problem(exceptionMessage);
             }
         }
 
@@ -35,7 +36,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                var response = _service.GetById(id);
+                var response = _customerAppService.GetById(id);
                 return Ok(response);
             } 
             catch (ArgumentNullException exception) {
@@ -46,9 +47,10 @@ namespace CustomerAPI.Controllers
         [HttpPost]
         public IActionResult Create(Customer customer)
         {
-            try {
-                var createdCustomer = _service.Create(customer);
-                return Created("", createdCustomer);
+            try 
+            {
+                var createdCustomerId = _customerAppService.Create(customer);
+                return Created("Id: ", createdCustomerId);
             } 
             catch (ArgumentException exception)
             {
@@ -57,11 +59,11 @@ namespace CustomerAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Customer customer)
+        public IActionResult Update([FromBody]Customer customer, long id)
         {
             try
             {
-                _service.Update(customer);
+                _customerAppService.Update(customer, id);
                 return Ok();
             }
             catch (ArgumentNullException exception)
@@ -80,7 +82,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                _service.Delete(id);
+                _customerAppService.Delete(id);
                 return NoContent();
             } 
             catch(ArgumentNullException exception)

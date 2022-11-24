@@ -1,4 +1,4 @@
-﻿namespace Data.Utilities
+﻿namespace DomainModels.Utilities
 {
     public static class StringExtensions
     {
