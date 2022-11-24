@@ -47,7 +47,8 @@ namespace CustomerAPI.Controllers
         [HttpPost]
         public IActionResult Create(Customer customer)
         {
-            try {
+            try 
+            {
                 var createdCustomerId = _customerAppService.Create(customer);
                 return Created("Id: ", createdCustomerId);
             } 
